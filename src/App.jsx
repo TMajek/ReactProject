@@ -1,19 +1,34 @@
 import './App.css';
-import {useState} from 'react';
+import React, { useState } from 'react';
 
 function App() {
-  const [todoList, setToDoList] = useState([])
+  const [todoList, setTodoList] = useState([]);
+  const [newTask, setNewTask] = useState("");
+
+  const handleChange = (event) => {
+    setNewTask(event.target.value);
+  };
+
+  const addTask = () => {
+    const newTodoList = [...todoList, newTask];
+    setTodoList(newTodoList);
+    setNewTask("");
+  };
+
   return (
     <div className="App">
       <div className="addTask">
-        <input></input>
-        <button>Add Task</button>
+        <input value={newTask} onChange={handleChange}></input>
+        <button onClick={addTask}>Add Task</button>
       </div>
       <div className="list">
+        {todoList.map((task, index) => {
+          return <h1>{task}</h1>;
+        })}
       </div>
-  </div>
-    );
+    </div>
+  );
 }
 
-
 export default App;
+
